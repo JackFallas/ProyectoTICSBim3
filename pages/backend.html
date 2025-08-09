@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Backend - Manual de Usuario de Apache Maven</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
-        crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
     <link href="../style/style.css" rel="stylesheet" />
 </head>
-
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
@@ -22,8 +19,7 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="../index.html">Inicio</a></li>
                     <li class="nav-item"><a class="nav-link" href="fronted.html">Frontend</a></li>
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="backend.html">Backend</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="backend.html">Backend</a></li>
                     <li class="nav-item"><a class="nav-link" href="db_persistence.html">DB / Persistencia</a></li>
                 </ul>
             </div>
@@ -37,14 +33,14 @@
                     <h2>Backend: pom.xml, DAO, Servlet, Maven y EJB</h2>
                 </div>
                 <div class="card-body">
-                    <p>El backend es el núcleo de tu aplicación. Aquí se implementa la lógica de negocio y la
-                        interacción con la base de datos.</p>
+                    <p>El backend es el núcleo de tu aplicación. Aquí se implementa la lógica de negocio, la seguridad, la validación de datos y la interacción con la capa de persistencia. En una arquitectura Java EE con Maven, esta capa suele incluir <strong>Servlets</strong>, <strong>DAOs</strong>, <strong>EJBs</strong> y la configuración necesaria en el <code>pom.xml</code>.</p>
 
                     <h3>Arquitectura del Backend</h3>
-                    <p>Recibe las peticiones del frontend, las procesa y envía respuestas.</p>
+                    <img src="../images/ejemplo.webp" alt="Diagrama Backend" class="img-fluid mb-3" />
+                    <p>La capa de backend recibe las peticiones del frontend, las procesa mediante reglas de negocio y comunica con la base de datos o sistemas externos antes de devolver la respuesta.</p>
 
-                    <h3>Configuración Maven (pom.xml)</h3>
-                    <p>Definición básica para usar Servlets y EJB.</p>
+                    <h3>⚙ Configuración de Maven (<code>pom.xml</code>)</h3>
+                    <p>En el <code>pom.xml</code> se definen las dependencias necesarias para que el backend funcione correctamente. Ejemplo mínimo para trabajar con Servlets y EJB:</p>
                     <pre><code class="language-xml">&lt;dependencies&gt;
     &lt;dependency&gt;
         &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
@@ -60,6 +56,77 @@
     &lt;/dependency&gt;
 &lt;/dependencies&gt;
 </code></pre>
+
+                    <h3>Servlets</h3>
+                    <p>Un <strong>Servlet</strong> procesa solicitudes HTTP y genera respuestas dinámicas. Es la pieza central para manejar la comunicación cliente-servidor.</p>
+                    <pre><code class="language-java">@WebServlet("/saludar")
+public class SaludoServlet extends HttpServlet {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        response.getWriter().println("&lt;h1&gt;¡Hola desde el Servlet!&lt;/h1&gt;");
+    }
+}
+</code></pre>
+
+                    <h3>DAO (Data Access Object)</h3>
+                    <p>El patrón DAO encapsula la lógica de acceso a datos, permitiendo que la lógica de negocio esté separada del código de persistencia.</p>
+                    <pre><code class="language-java">public class UsuarioDAO {
+    private EntityManager em;
+    public UsuarioDAO(EntityManager em) {
+        this.em = em;
+    }
+    public void guardar(Usuario usuario) {
+        em.getTransaction().begin();
+        em.persist(usuario);
+        em.getTransaction().commit();
+    }
+}
+</code></pre>
+
+                    <h3>EJB (Enterprise JavaBeans)</h3>
+                    <p>Los EJB son componentes del lado del servidor que implementan la lógica de negocio. Pueden ser <strong>Stateless</strong> (sin estado) o <strong>Stateful</strong> (mantienen estado entre llamadas).</p>
+                    <pre><code class="language-java">@Stateless
+public class ServicioUsuarioEJB {
+    @PersistenceContext
+    private EntityManager em;
+    public Usuario obtenerPorId(long id) {
+        return em.find(Usuario.class, id);
+    }
+}
+</code></pre>
+
+                    <h3>Flujo de Ejecución del Backend</h3>
+                    <ol>
+                        <li>El usuario envía datos desde el frontend (formulario o petición AJAX).</li>
+                        <li>Un Servlet recibe la petición y valida la información.</li>
+                        <li>El Servlet llama a un EJB o DAO para procesar los datos.</li>
+                        <li>El DAO se comunica con la capa de persistencia.</li>
+                        <li>El resultado se envía de vuelta al Servlet.</li>
+                        <li>El Servlet devuelve la respuesta al cliente.</li>
+                    </ol>
+
+                    <h3>Pasos para Configurar un Backend con Maven</h3>
+                    <ul>
+                        <li>Crear un proyecto Maven con <code>maven-archetype-webapp</code>.</li>
+                        <li>Configurar el <code>pom.xml</code> con dependencias de Servlets y EJB.</li>
+                        <li>Definir Servlets en <code>src/main/java</code>.</li>
+                        <li>Crear DAOs y clases de negocio.</li>
+                        <li>Configurar <code>web.xml</code> o anotaciones <code>@WebServlet</code> para el mapeo de rutas.</li>
+                        <li>Empaquetar el proyecto en un <code>.war</code> usando <code>mvn package</code>.</li>
+                        <li>Desplegar en un servidor de aplicaciones como Tomcat o GlassFish.</li>
+                    </ul>
+
+                    <h3>Buenas Prácticas en Backend</h3>
+                    <ul>
+                        <li>Seguir el patrón MVC para separar responsabilidades.</li>
+                        <li>Usar validaciones tanto en frontend como en backend.</li>
+                        <li>Proteger endpoints con autenticación y autorización.</li>
+                        <li>Manejar excepciones de forma centralizada.</li>
+                        <li>Utilizar logs para depuración y monitoreo.</li>
+                    </ul>
+
+                    <h3>Despliegue del Backend</h3>
+                    <p>Compila el proyecto con <code>mvn clean package</code>, despliega el archivo <code>.war</code> en tu servidor de aplicaciones y accede desde el navegador usando la URL y rutas configuradas.</p>
                 </div>
             </section>
         </main>
@@ -69,8 +136,6 @@
         <p>&copy; 2025 Manual de Usuario de Apache Maven. Todos los derechos reservados.</p>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </body>
-
 </html>
