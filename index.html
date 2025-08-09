@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Manual de Usuario de Apache Maven - Base</title>
+    <title>Manual de Usuario de Apache Maven - Completo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
     <link href="style/style.css" rel="stylesheet" />
 </head>
@@ -43,6 +43,105 @@
                         <li><strong>Informes de Proyecto:</strong> Genera documentación y métricas del proyecto.</li>
                         <li><strong>Reutilización:</strong> Fomenta la reutilización de código y configuraciones.</li>
                     </ul>
+                </div>
+            </section>
+
+            <section id="pomxml" class="card mt-4">
+                <div class="card-header">
+                    <h2>El Archivo <code>pom.xml</code></h2>
+                </div>
+                <div class="card-body">
+                    <p>El Project Object Model (POM) es el archivo fundamental de Maven. Es un archivo XML que contiene toda la información sobre el proyecto y los detalles de configuración utilizados por Maven para construir el proyecto.</p>
+                    <p>Cada proyecto Maven tiene un <code>pom.xml</code>. Cuando ejecutas un comando Maven, este busca el <code>pom.xml</code> en el directorio actual para obtener la información necesaria para ejecutar la tarea.</p>
+
+                    <div class="text-center my-4">
+                        <img src="images/pom.jpeg" class="img-fluid border rounded" alt="Captura de pantalla de un archivo pom.xml en un entorno de desarrollo" />
+                        <small class="d-block mt-2">Ejemplo de la estructura y contenido de un archivo pom.xml en un proyecto Maven.</small>
+                    </div>
+
+                    <p><strong>Estructura básica de un <code>pom.xml</code>:</strong></p>
+                    <pre><code class="language-xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+    &lt;groupId&gt;com.tuempresa&lt;/groupId&gt;
+    &lt;artifactId&gt;mi-manual-maven&lt;/artifactId&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;packaging&gt;war&lt;/packaging&gt;
+
+    &lt;name&gt;Manual de Usuario de Maven&lt;/name&gt;
+
+    &lt;properties&gt;
+        &lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;
+        &lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;
+        &lt;failOnMissingWebXml&gt;false&lt;/failOnMissingWebXml&gt;
+    &lt;/properties&gt;
+
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+            &lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;
+            &lt;version&gt;4.0.1&lt;/version&gt;
+            &lt;scope&gt;provided&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;javax.servlet.jsp&lt;/groupId&gt;
+            &lt;artifactId&gt;javax.servlet.jsp-api&lt;/artifactId&gt;
+            &lt;version&gt;2.3.3&lt;/version&gt;
+            &lt;scope&gt;provided&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+
+    &lt;build&gt;
+        &lt;finalName&gt;manual-maven&lt;/finalName&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+                &lt;version&gt;3.8.1&lt;/version&gt;
+                &lt;configuration&gt;
+                    &lt;source&gt;1.8&lt;/source&gt;
+                    &lt;target&gt;1.8&lt;/target&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
+                &lt;version&gt;3.3.2&lt;/version&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/project&gt;
+</code></pre>
+                </div>
+            </section>
+
+            <section id="comandos" class="card mt-4">
+                <div class="card-header">
+                    <h2>Comandos Principales de Maven</h2>
+                </div>
+                <div class="card-body">
+                    <p>Maven ofrece una serie de comandos que te permiten realizar diversas tareas en tu proyecto. Aquí están algunos de los más utilizados:</p>
+                    <dl>
+                        <dt><code>mvn clean</code></dt>
+                        <dd>Limpia el directorio de destino del proyecto, eliminando los artefactos generados por construcciones anteriores.</dd>
+
+                        <dt><code>mvn compile</code></dt>
+                        <dd>Compila el código fuente del proyecto.</dd>
+
+                        <dt><code>mvn test</code></dt>
+                        <dd>Ejecuta las pruebas unitarias del proyecto.</dd>
+
+                        <dt><code>mvn package</code></dt>
+                        <dd>Empaqueta el código compilado en un formato distribuible (por ejemplo, un archivo JAR, WAR o EAR).</dd>
+
+                        <dt><code>mvn install</code></dt>
+                        <dd>Instala el paquete del proyecto en el repositorio Maven local, haciéndolo disponible para otros proyectos en tu máquina.</dd>
+
+                        <dt><code>mvn deploy</code></dt>
+                        <dd>Copia el paquete final al repositorio remoto para compartirlo con otros desarrolladores.</dd>
+                    </dl>
                 </div>
             </section>
 
