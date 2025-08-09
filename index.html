@@ -1,11 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyecto TICS</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Manual de Usuario de Apache Maven - Base</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+    <link href="style/style.css" rel="stylesheet" />
 </head>
 <body>
-    
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../index.html">Maven Wiki</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="../index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="../paginatics/pages/fronted.html">Frontend</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../paginatics/pages/backend.html">Backend</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../paginatics/pages/db_persistence.html">DB / Persistencia</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <main>
+
+            <section id="introduccion" class="card mt-4">
+                <div class="card-header">
+                    <h2>Introducción a Maven</h2>
+                </div>
+                <div class="card-body">
+                    <p>Apache Maven es una herramienta de automatización de construcción de proyectos de software. Se utiliza principalmente para proyectos Java, pero también puede ser usado para construir proyectos en otros lenguajes. Su objetivo principal es simplificar el proceso de construcción en un proyecto, estandarizarlo y mejorar la gestión de dependencias.</p>
+                    <p>Con Maven, puedes definir cómo se construye tu proyecto, qué dependencias necesita (librerías externas), cómo se empaqueta (JAR, WAR, EAR) y cómo se despliega. Todo esto se configura en un archivo XML llamado <code>pom.xml</code>.</p>
+                    <p><strong>Ventajas clave de Maven:</strong></p>
+                    <ul>
+                        <li><strong>Gestión de Dependencias:</strong> Descarga automáticamente las librerías necesarias.</li>
+                        <li><strong>Construcción Estandarizada:</strong> Define un ciclo de vida de construcción claro y predecible.</li>
+                        <li><strong>Informes de Proyecto:</strong> Genera documentación y métricas del proyecto.</li>
+                        <li><strong>Reutilización:</strong> Fomenta la reutilización de código y configuraciones.</li>
+                    </ul>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <footer class="mt-5 p-4 text-center">
+        <p>&copy; 2025 Manual de Usuario de Apache Maven. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </body>
 </html>
