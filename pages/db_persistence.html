@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DB / Persistencia - Manual de Usuario de Maven</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="../style/style.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../index.html">Maven Wiki</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="../index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link " href="fronted.html">Frontend</a></li>
+                    <li class="nav-item"><a class="nav-link " aria-current="page" href="backend.html">Backend</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="db_persistence.html">DB / Persistencia</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <main>
+            <section class="card mt-5">
+                <div class="card-header">
+                    <h2>Base de Datos y Persistencia: <code>persistence.xml</code> y JPA</h2>
+                </div>
+                <div class="card-body">
+                    <p>La persistencia es el mecanismo que permite que los datos de una aplicación se almacenen de forma duradera, generalmente en una base de datos relacional. En Java EE y Jakarta EE, la tecnología estándar para lograrlo es la <strong>Java Persistence API (JPA)</strong>, que se encarga de mapear objetos Java a tablas de la base de datos.</p>
+<br>
+<h3>Conceptos clave</h3>
+                    <ul>
+                        <li><strong>Entidad:</strong> Clase Java anotada con <strong> <code>@Entity</code> </strong>  que representa una tabla en la base de datos.</li>
+                        <li><strong>Unidad de persistencia:</strong> Configuración definida en <strong> <code>persistence.xml</code> </strong> que especifica el proveedor, la conexión y las clases gestionadas.</li>
+                        <li><strong>ORM (Object-Relational Mapping):</strong> Técnica que mapea automáticamente clases Java a tablas SQL.</li>
+                        <li><strong>Proveedor JPA:</strong> Implementación concreta de JPA, como Hibernate, EclipseLink u OpenJPA.</li>
+                    </ul>
+
+                    <h3>Configuración de Maven para Persistencia</h3>
+                    <p>Para que Maven pueda manejar JPA, necesitas agregar las dependencias del proveedor JPA (como Hibernate) y el driver de la base de datos que estés usando (por ejemplo, MySQL Connector/J). Aquí está un ejemplo de cómo se vería la sección <code>&lt;dependencies&gt;</code> en tu <code>pom.xml</code>:</p>
+<pre><code class="language-xml">
+&lt;dependencies&gt;
+    &lt;!-- Dependencia de Java Persistence API --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.hibernate.orm&lt;/groupId&gt;
+        &lt;artifactId&gt;hibernate-core&lt;/artifactId&gt;
+        &lt;version&gt;5.4.32.Final&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!-- Driver de MySQL --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;mysql&lt;/groupId&gt;
+        &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+        &lt;version&gt;8.0.28&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+</code></pre>
+
+
+                    <h3>Ejemplo de entidad JPA</h3>
+<pre><code class="language-java">
+import javax.persistence.*;
+
+@Entity
+@Table(name = "productos")
+public class Producto {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String nombre;
+    private double precio;
+
+    // Constructor vacío (requerido por JPA)
+    public Producto() {}
+
+    public Producto(String nombre, double precio) {
+        this.nombre = nombre;
+        this.precio = precio;
+    }
+
+    // Getters y Setters
+}
+</code></pre>
+
+                    <h3>Archivo <code>persistence.xml</code></h3>
+                    <p>Este archivo de configuración se ubica en <code>src/main/resources/META-INF/</code> y define cómo JPA se conecta a la base de datos. El <code>transaction-type</code> indica si las transacciones serán gestionadas por el contenedor (JTA) o manualmente por la aplicación (RESOURCE_LOCAL).</p>
+<pre><code class="language-xml">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;persistence version="2.2"
+    xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+    http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"&gt;
+
+    &lt;persistence-unit name="miUnidad" transaction-type="RESOURCE_LOCAL"&gt;
+        &lt;provider&gt;org.hibernate.jpa.HibernatePersistenceProvider&lt;/provider&gt;
+
+        &lt;class&gt;com.ejemplo.modelo.Producto&lt;/class&gt;
+
+        &lt;properties&gt;
+            &lt;property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/midb"/&gt;
+            &lt;property name="javax.persistence.jdbc.user" value="root"/&gt;
+            &lt;property name="javax.persistence.jdbc.password" value="password"/&gt;
+            &lt;property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/&gt;
+
+            &lt;property name="hibernate.hbm2ddl.auto" value="update"/&gt;
+            &lt;property name="hibernate.show_sql" value="true"/&gt;
+            &lt;property name="hibernate.format_sql" value="true"/&gt;
+        &lt;/properties&gt;
+    &lt;/persistence-unit&gt;
+&lt;/persistence&gt;
+</code></pre>
+
+                    <h3>Operaciones CRUD con JPA</h3>
+                    <p>El <strong><code>EntityManager</code></strong> es la interfaz principal para interactuar con la base de datos. A través de él, puedes realizar las operaciones básicas de **Crear, Leer, Actualizar y Eliminar (CRUD)**. Aquí se muestra un ejemplo completo de un DAO que maneja estas operaciones:</p>
+<pre><code class="language-java">
+import javax.persistence.*;
+
+public class ProductoDAO {
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("miUnidad");
+
+    public void crearProducto(Producto p) {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.persist(p);
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    public Producto buscarProducto(Long id) {
+        EntityManager em = emf.createEntityManager();
+        Producto p = em.find(Producto.class, id);
+        em.close();
+        return p;
+    }
+
+    public void actualizarProducto(Producto p) {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.merge(p);
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    public void eliminarProducto(Long id) {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        Producto p = em.find(Producto.class, id);
+        if (p != null) {
+            em.remove(p);
+        }
+        em.getTransaction().commit();
+        em.close();
+    }
+}
+</code></pre>
+
+                    <h3>Buenas prácticas</h3>
+                    <ul>
+                        <li>Usar <code>hbm2ddl.auto=update</code> solo en desarrollo. En producción, manejar scripts SQL manualmente.</li>
+                        <li>Separar la capa de persistencia de la lógica de negocio.</li>
+                        <li>Controlar el ciclo de vida de <code>EntityManager</code> para evitar fugas de memoria.</li>
+                        <li>Utilizar transacciones para todas las operaciones que modifiquen datos.</li>
+                    </ul>
+
+                    <p>Con JPA y Maven, puedes integrar fácilmente la persistencia de datos en aplicaciones Java EE, manteniendo el código limpio y escalable.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer class="mt-5 p-4 text-center">
+        <p>&copy; 2025 Manual de Usuario de Apache Maven. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+</body>
+</html>

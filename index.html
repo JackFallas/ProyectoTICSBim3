@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Manual de Usuario de Apache Maven - Completo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
-    <link href="style/style.css" rel="stylesheet" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Manual de Usuario de Maven </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+    <link href="style/style.css" rel="stylesheet" />
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="../index.html">Maven Wiki</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -17,141 +17,182 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="../index.html">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="../paginatics/pages/fronted.html">Frontend</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../paginatics/pages/backend.html">Backend</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../paginatics/pages/db_persistence.html">DB / Persistencia</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="pages/fronted.html">Frontend</a></li>
+                    <li class="nav-item"><a class="nav-link " aria-current="page" href="pages/backend.html">Backend</a></li>
+                    <li class="nav-item"><a class="nav-link" href="pages/db_persistence.html">DB / Persistencia</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <div class="container">
-        <main>
+    <div class="container">
+        <main>
 
-            <section id="introduccion" class="card mt-4">
-                <div class="card-header">
-                    <h2>Introducción a Maven</h2>
-                </div>
-                <div class="card-body">
-                    <p>Apache Maven es una herramienta de automatización de construcción de proyectos de software. Se utiliza principalmente para proyectos Java, pero también puede ser usado para construir proyectos en otros lenguajes. Su objetivo principal es simplificar el proceso de construcción en un proyecto, estandarizarlo y mejorar la gestión de dependencias.</p>
-                    <p>Con Maven, puedes definir cómo se construye tu proyecto, qué dependencias necesita (librerías externas), cómo se empaqueta (JAR, WAR, EAR) y cómo se despliega. Todo esto se configura en un archivo XML llamado <code>pom.xml</code>.</p>
-                    <p><strong>Ventajas clave de Maven:</strong></p>
-                    <ul>
-                        <li><strong>Gestión de Dependencias:</strong> Descarga automáticamente las librerías necesarias.</li>
-                        <li><strong>Construcción Estandarizada:</strong> Define un ciclo de vida de construcción claro y predecible.</li>
-                        <li><strong>Informes de Proyecto:</strong> Genera documentación y métricas del proyecto.</li>
-                        <li><strong>Reutilización:</strong> Fomenta la reutilización de código y configuraciones.</li>
-                    </ul>
-                </div>
-            </section>
+            <section id="bienvenida" class="card mt-4">
+                <div class="card-header">
+                    <h1>Bienvenido al Manual de Usuario de Maven</h1>
+                </div>
+                <div class="card-body">
+                    <p>Este manual es una guía completa y práctica para desarrolladores que desean construir una aplicación web con el ecosistema de Java EE, utilizando Apache Maven para la gestión del proyecto. Aquí, te llevaremos paso a paso a través de las tres capas fundamentales de cualquier aplicación web: el <strong>Frontend</strong>, el <strong>Backend</strong> y la capa de <strong>DB / Persistencia</strong>.</p>
+                    <p>Cada sección ha sido diseñada para ser un recurso de referencia claro, combinando conceptos teóricos con ejemplos prácticos para facilitar tu aprendizaje y la implementación de las tecnologías en tus proyectos. ¡Empecemos!</p>
+                </div>
+            </section>
 
-            <section id="pomxml" class="card mt-4">
-                <div class="card-header">
-                    <h2>El Archivo <code>pom.xml</code></h2>
-                </div>
-                <div class="card-body">
-                    <p>El Project Object Model (POM) es el archivo fundamental de Maven. Es un archivo XML que contiene toda la información sobre el proyecto y los detalles de configuración utilizados por Maven para construir el proyecto.</p>
-                    <p>Cada proyecto Maven tiene un <code>pom.xml</code>. Cuando ejecutas un comando Maven, este busca el <code>pom.xml</code> en el directorio actual para obtener la información necesaria para ejecutar la tarea.</p>
+            <section id="arquitectura" class="card mt-4">
+                <div class="card-header">
+                    <h2>Arquitectura del Proyecto</h2>
+                </div>
+                <div class="card-body">
+                    <p>Nuestro proyecto sigue una arquitectura de tres capas, donde cada una tiene un rol específico y se comunica con las otras para crear una aplicación funcional:</p>
+                    <ul>
+                        <li><strong>Frontend:</strong> La interfaz de usuario. Con HTML, CSS, Bootstrap, JSP y JSF, construimos la parte visible con la que interactúan los usuarios.</li>
+                        <li><strong>Backend:</strong> La lógica de negocio. Servlets, DAO y EJB procesan las peticiones, aplican reglas de negocio y manejan la comunicación con la base de datos.</li>
+                        <li><strong>DB / Persistencia:</strong> El almacenamiento de datos. Usando JPA y configurando el archivo <code>persistence.xml</code>, gestionamos cómo se guardan y recuperan los datos de forma duradera.</li>
+                    </ul>
+                    <p>Este enfoque nos permite una clara separación de responsabilidades, facilitando la escalabilidad y el mantenimiento del proyecto.</p>
+                </div>
+            </section>
 
-                    <div class="text-center my-4">
-                        <img src="images/pom.jpeg" class="img-fluid border rounded" alt="Captura de pantalla de un archivo pom.xml en un entorno de desarrollo" />
-                        <small class="d-block mt-2">Ejemplo de la estructura y contenido de un archivo pom.xml en un proyecto Maven.</small>
-                    </div>
+            <section id="requisitos" class="card mt-4">
+                <div class="card-header">
+                    <h2>Requisitos del Sistema</h2>
+                </div>
+                <div class="card-body">
+                    <p>Para poder seguir los ejemplos y desarrollar proyectos similares, se recomienda tener instalado el siguiente software:</p>
+                    <ul>
+                        <li><strong>Java Development Kit (JDK):</strong> Versión 8 o superior.</li>
+                        <li><strong>Apache Maven:</strong> Configurado en las variables de entorno.</li>
+                        <li><strong>Un IDE:</strong> Se recomienda NetBeans, Eclipse o IntelliJ IDEA con soporte para Maven.</li>
+                        <li><strong>Servidor de Aplicaciones:</strong> Un servidor compatible con Java EE, como GlassFish, Payara o WildFly.</li>
+                        <li><strong>Base de Datos:</strong> Un sistema de gestión de bases de datos como MySQL o PostgreSQL.</li>
+                    </ul>
+                </div>
+            </section>
 
-                    <p><strong>Estructura básica de un <code>pom.xml</code>:</strong></p>
-                    <pre><code class="language-xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
-    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+            <section id="introduccion-maven-existente" class="card mt-4">
+                <div class="card-header">
+                    <h2>Introducción a Maven</h2>
+                </div>
+                <div class="card-body">
+                    <p>Apache Maven es una herramienta de automatización de construcción de proyectos de software. Se utiliza principalmente para proyectos Java, pero también puede ser usado para construir proyectos en otros lenguajes. Su objetivo principal es simplificar el proceso de construcción en un proyecto, estandarizarlo y mejorar la gestión de dependencias.</p>
+                    <p>Con Maven, puedes definir cómo se construye tu proyecto, qué dependencias necesita (librerías externas), cómo se empaqueta (JAR, WAR, EAR) y cómo se despliega. Todo esto se configura en un archivo XML llamado <code>pom.xml</code>.</p>
+                    <p><strong>Ventajas clave de Maven:</strong></p>
+                    <ul>
+                        <li><strong>Gestión de Dependencias:</strong> Descarga automáticamente las librerías necesarias.</li>
+                        <li><strong>Construcción Estandarizada:</strong> Define un ciclo de vida de construcción claro y predecible.</li>
+                        <li><strong>Informes de Proyecto:</strong> Genera documentación y métricas del proyecto.</li>
+                        <li><strong>Reutilización:</strong> Fomenta la reutilización de código y configuraciones.</li>
+                    </ul>
+                </div>
+            </section>
 
-    &lt;groupId&gt;com.tuempresa&lt;/groupId&gt;
-    &lt;artifactId&gt;mi-manual-maven&lt;/artifactId&gt;
-    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
-    &lt;packaging&gt;war&lt;/packaging&gt;
+            <section id="pomxml" class="card mt-4">
+                <div class="card-header">
+                    <h2>El Archivo <code>pom.xml</code></h2>
+                </div>
+                <div class="card-body">
+                    <p>El Project Object Model (POM) es el archivo fundamental de Maven. Es un archivo XML que contiene toda la información sobre el proyecto y los detalles de configuración utilizados por Maven para construir el proyecto.</p>
+                    <p>Cada proyecto Maven tiene un <code>pom.xml</code>. Cuando ejecutas un comando Maven, este busca el <code>pom.xml</code> en el directorio actual para obtener la información necesaria para ejecutar la tarea.</p>
 
-    &lt;name&gt;Manual de Usuario de Maven&lt;/name&gt;
+                    <div class="text-center my-4">
+                        <img src="images/pom.jpeg" class="img-fluid border rounded" alt="Captura de pantalla de un archivo pom.xml en un entorno de desarrollo" />
+                        <small class="d-block mt-2">Ejemplo de la estructura y contenido de un archivo pom.xml en un proyecto Maven.</small>
+                    </div>
 
-    &lt;properties&gt;
-        &lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;
-        &lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;
-        &lt;failOnMissingWebXml&gt;false&lt;/failOnMissingWebXml&gt;
-    &lt;/properties&gt;
+                    <p><strong>Estructura básica de un <code>pom.xml</code>:</strong></p>
+                    <pre><code class="language-xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
 
-    &lt;dependencies&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
-            &lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;
-            &lt;version&gt;4.0.1&lt;/version&gt;
-            &lt;scope&gt;provided&lt;/scope&gt;
-        &lt;/dependency&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;javax.servlet.jsp&lt;/groupId&gt;
-            &lt;artifactId&gt;javax.servlet.jsp-api&lt;/artifactId&gt;
-            &lt;version&gt;2.3.3&lt;/version&gt;
-            &lt;scope&gt;provided&lt;/scope&gt;
-        &lt;/dependency&gt;
-    &lt;/dependencies&gt;
+    &lt;groupId&gt;com.tuempresa&lt;/groupId&gt;
+    &lt;artifactId&gt;mi-manual-maven&lt;/artifactId&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;packaging&gt;war&lt;/packaging&gt;
 
-    &lt;build&gt;
-        &lt;finalName&gt;manual-maven&lt;/finalName&gt;
-        &lt;plugins&gt;
-            &lt;plugin&gt;
-                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
-                &lt;version&gt;3.8.1&lt;/version&gt;
-                &lt;configuration&gt;
-                    &lt;source&gt;1.8&lt;/source&gt;
-                    &lt;target&gt;1.8&lt;/target&gt;
-                &lt;/configuration&gt;
-            &lt;/plugin&gt;
-            &lt;plugin&gt;
-                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-                &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
-                &lt;version&gt;3.3.2&lt;/version&gt;
-            &lt;/plugin&gt;
-        &lt;/plugins&gt;
-    &lt;/build&gt;
+    &lt;name&gt;Manual de Usuario de Maven&lt;/name&gt;
+
+    &lt;properties&gt;
+        &lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;
+        &lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;
+        &lt;failOnMissingWebXml&gt;false&lt;/failOnMissingWebXml&gt;
+    &lt;/properties&gt;
+
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+            &lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;
+            &lt;version&gt;4.0.1&lt;/version&gt;
+            &lt;scope&gt;provided&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;javax.servlet.jsp&lt;/groupId&gt;
+            &lt;artifactId&gt;javax.servlet.jsp-api&lt;/artifactId&gt;
+            &lt;version&gt;2.3.3&lt;/version&gt;
+            &lt;scope&gt;provided&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+
+    &lt;build&gt;
+        &lt;finalName&gt;manual-maven&lt;/finalName&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+                &lt;version&gt;3.8.1&lt;/version&gt;
+                &lt;configuration&gt;
+                    &lt;source&gt;1.8&lt;/source&gt;
+                    &lt;target&gt;1.8&lt;/target&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
+                &lt;version&gt;3.3.2&lt;/version&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
 &lt;/project&gt;
 </code></pre>
-                </div>
-            </section>
+                </div>
+            </section>
 
-            <section id="comandos" class="card mt-4">
-                <div class="card-header">
-                    <h2>Comandos Principales de Maven</h2>
-                </div>
-                <div class="card-body">
-                    <p>Maven ofrece una serie de comandos que te permiten realizar diversas tareas en tu proyecto. Aquí están algunos de los más utilizados:</p>
-                    <dl>
-                        <dt><code>mvn clean</code></dt>
-                        <dd>Limpia el directorio de destino del proyecto, eliminando los artefactos generados por construcciones anteriores.</dd>
+            <section id="comandos" class="card mt-4">
+                <div class="card-header">
+                    <h2>Comandos Principales de Maven</h2>
+                </div>
+                <div class="card-body">
+                    <p>Maven ofrece una serie de comandos que te permiten realizar diversas tareas en tu proyecto. Aquí están algunos de los más utilizados:</p>
+                    <dl>
+                        <dt><code>mvn clean</code></dt>
+                        <dd>Limpia el directorio de destino del proyecto, eliminando los artefactos generados por construcciones anteriores.</dd>
 
-                        <dt><code>mvn compile</code></dt>
-                        <dd>Compila el código fuente del proyecto.</dd>
+                        <dt><code>mvn compile</code></dt>
+                        <dd>Compila el código fuente del proyecto.</dd>
 
-                        <dt><code>mvn test</code></dt>
-                        <dd>Ejecuta las pruebas unitarias del proyecto.</dd>
+                        <dt><code>mvn test</code></dt>
+                        <dd>Ejecuta las pruebas unitarias del proyecto.</dd>
 
-                        <dt><code>mvn package</code></dt>
-                        <dd>Empaqueta el código compilado en un formato distribuible (por ejemplo, un archivo JAR, WAR o EAR).</dd>
+                        <dt><code>mvn package</code></dt>
+                        <dd>Empaqueta el código compilado en un formato distribuible (por ejemplo, un archivo JAR, WAR o EAR).</dd>
 
-                        <dt><code>mvn install</code></dt>
-                        <dd>Instala el paquete del proyecto en el repositorio Maven local, haciéndolo disponible para otros proyectos en tu máquina.</dd>
+                        <dt><code>mvn install</code></dt>
+                        <dd>Instala el paquete del proyecto en el repositorio Maven local, haciéndolo disponible para otros proyectos en tu máquina.</dd>
 
-                        <dt><code>mvn deploy</code></dt>
-                        <dd>Copia el paquete final al repositorio remoto para compartirlo con otros desarrolladores.</dd>
-                    </dl>
-                </div>
-            </section>
+                        <dt><code>mvn deploy</code></dt>
+                        <dd>Copia el paquete final al repositorio remoto para compartirlo con otros desarrolladores.</dd>
+                    </dl>
+                </div>
+            </section>
 
-        </main>
-    </div>
+        </main>
+    </div>
 
-    <footer class="mt-5 p-4 text-center">
-        <p>&copy; 2025 Manual de Usuario de Apache Maven. Todos los derechos reservados.</p>
-    </footer>
+    <footer class="mt-5 p-4 text-center">
+        <p>&copy; 2025 Manual de Usuario de Apache Maven. Todos los derechos reservados.</p>
+    </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </body>
 </html>
